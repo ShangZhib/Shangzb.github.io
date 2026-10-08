@@ -1,0 +1,5 @@
+site_name: Shangzb的个人网站
+site_url: https://shangzb.github.io/mkdocs-site/
+site_author: 尚志兵(Shangzb)
+theme:
+  name: material #主题
