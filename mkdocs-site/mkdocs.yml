@@ -1,5 +1,118 @@
-site_name: Shangzb的个人网站
-site_url: https://shangzhib.github.io/Shangzb.github.io/
-site_author: 尚志兵(Shangzb)
+
+# ===== 1. 网站基本信息 =====
+site_name: "Shangzb 的知识浅池"  # 网站名称，显示在网页左上角和浏览器标签等位置
+site_url: "https://shangzhib.github.io/Shangzb.github.io/"  # 网站正式部署后的网址
+site_author: "尚志兵 (Shangzb)"  # 网站作者
+site_description: "记录学习过程与个人思考。"  # 网站简介，可用于搜索引擎等场景
+
+# ===== 2. 主题与外观 =====
+
+
 theme:
-  name: material #主题
+  name: material  # 使用 Material for MkDocs 主题
+  language: zh  # 将主题自带的提示文字设置为中文
+
+  palette:  # 配置网站的浅色和深色模式
+    - media: "(prefers-color-scheme: light)"  # 系统偏好浅色时采用此方案
+      scheme: default  # 使用 Material 的浅色主题
+      primary: white  # 设置主题主色为白色，作为导航栏等区域的基础色
+      accent: indigo  # 设置主题交互强调色，后续由 CSS 精确调整为方案 A 的蓝色
+      toggle:
+        icon: material/weather-night  # 显示月亮图标
+        name: 切换到深色模式  # 鼠标悬停时的提示文字
+
+    - media: "(prefers-color-scheme: dark)"  # 系统偏好深色时采用此方案
+      scheme: slate  # 使用 Material 的深色主题
+      primary: blue grey  # 深色模式使用蓝灰色系
+      accent: indigo  # 深色模式保留蓝色强调
+      toggle:
+        icon: material/white-balance-sunny  # 显示太阳图标
+        name: 切换到浅色模式  # 鼠标悬停时的提示文字
+
+  features:  # 保留适合知识库的主题功能
+    - navigation.instant  # 页面切换时使用即时导航
+    - navigation.tabs  # 在顶部显示一级导航分类
+    - navigation.sections  # 左侧目录按章节分组
+    - navigation.top  # 提供返回顶部按钮
+    - navigation.tracking  # 滚动时同步当前章节的地址锚点
+    - navigation.footer  # 显示上一页和下一页导航
+    - search.suggest  # 搜索时提供关键词建议
+    - search.highlight  # 高亮搜索匹配内容
+    - content.code.copy  # 代码块提供复制按钮
+    - content.code.annotate  # 支持代码块注释
+    - toc.follow  # 让当前章节在目录中保持可见
+    
+# ===== 3. GitHub 仓库入口 =====
+repo_url: "https://github.com/shangzhib/Shangzb.github.io"  # 右上角 GitHub 图标指向你的仓库
+repo_name: "Shangzb.github.io"  # GitHub 入口显示的文字
+edit_uri: "edit/main/docs/"  # 页面编辑入口；假设默认分支为 main，文档位于 docs 目录
+
+# ===== 4. 网站顶部导航与知识分类 =====
+nav:
+  - 首页: index.md  # 首页，文件路径相对于 docs 目录
+  - 数学:
+      - 数学索引: math/index.md  # 数学分类的入口页
+      - 高等数学: math/calculus.md  # 记录微积分等内容
+      - 线性代数: math/linear-algebra.md  # 记录矩阵、向量空间等内容
+      - 数值分析: math/numerical-analysis.md  # 记录数值计算方法
+      - 有限元与数值求解: math/fem.md  # 记录有限元、PCG 等求解算法
+  - C++ 与工程开发:
+      - 开发索引: cpp/index.md  # C++ 分类的入口页
+      - C++ 基础: cpp/cpp-basics.md  # 记录语言基础和语法
+      - 数据结构与算法: cpp/algorithms.md  # 记录数据结构与算法
+      - CUDA: cpp/cuda.md  # 记录 CUDA 编程和 GPU 调试
+      - 工程实践: cpp/engineering.md  # 记录工程开发、调试与经验
+  - AI:
+      - AI 索引: ai/index.md  # AI 分类的入口页
+      - 机器学习: ai/machine-learning.md  # 记录机器学习知识
+      - 深度学习: ai/deep-learning.md  # 记录神经网络等内容
+      - 论文与工具: ai/papers-and-tools.md  # 记录论文阅读和 AI 工具
+  - 随想与成长:
+      - 思考随笔: thoughts/index.md  # 随想分类的入口页
+      - 学习复盘: thoughts/learning-review.md  # 记录学习总结与阶段复盘
+  - 关于: about.md  # 介绍你自己和网站的建设初衷
+
+# ===== 5. 页脚 =====
+copyright: "Copyright © 2026 Shangzb"  # 页脚版权信息
+
+# ===== 6. 插件 =====
+plugins:
+  - search:  # 启用 MkDocs 自带的全文搜索插件
+      lang:  # 指定搜索使用的语言
+        - zh  # 中文搜索支持
+        - en  # 英文搜索支持
+
+# ===== 7. Markdown 扩展 =====
+markdown_extensions:
+  - abbr  # 支持缩写定义
+  - attr_list  # 允许给 Markdown 元素添加 CSS 类和属性
+  - admonition  # 支持提示框，例如 note、warning
+  - def_list  # 支持定义列表
+  - footnotes  # 支持脚注
+  - md_in_html  # 允许在 HTML 标签中编写 Markdown
+  - toc:  # 自动生成文章目录
+      permalink: true  # 为标题生成可复制的锚点链接
+      title: 本页目录  # 目录标题
+  - pymdownx.arithmatex:  # 支持 LaTeX 数学公式
+      generic: true  # 生成可交给 MathJax 等公式引擎处理的标记
+  - pymdownx.details  # 支持可折叠的内容块
+  - pymdownx.highlight:  # 配置代码语法高亮
+      anchor_linenums: true  # 为代码行号生成锚点
+      line_spans: __span  # 为代码行生成独立标识
+      pygments_lang_class: true  # 为代码块添加语言 CSS 类
+  - pymdownx.inlinehilite  # 支持行内代码语法高亮
+  - pymdownx.keys  # 支持键盘按键样式，例如 ++ctrl+s++
+  - pymdownx.mark  # 支持 ==重点标记==
+  - pymdownx.superfences  # 支持增强代码块和嵌套代码块
+  - pymdownx.tabbed:  # 支持选项卡式内容
+      alternate_style: true  # 使用 Material 风格的选项卡
+  - pymdownx.tasklist:  # 支持任务清单
+      custom_checkbox: true  # 使用美观的复选框
+  - pymdownx.tilde  # 支持删除线和下标等语法
+
+# ===== 8. 数学公式渲染 =====
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  # 加载 MathJax，在浏览器中渲染 LaTeX 公式
+
+extra_css:
+  - stylesheets/extra.css  # 加载 docs/stylesheets/extra.css 中的自定义样式

@@ -1,0 +1,206 @@
+
+/* ==================================================
+   1. Swiss Minimal：全局颜色变量
+   ================================================== */
+
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #FFFFFF; /* 页面主背景：纯白 */
+  --md-default-fg-color: #252A34; /* 正文文字：石墨黑 */
+  --md-default-fg-color--light: #667085; /* 次级文字：蓝灰 */
+  --md-default-fg-color--lighter: #8A93A3; /* 更弱的辅助文字 */
+  --md-default-fg-color--lightest: #E6E9EE; /* 极浅的分隔线颜色 */
+
+  --md-primary-fg-color: #FFFFFF; /* 主题主色：白色 */
+  --md-primary-fg-color--dark: #F4F5F7; /* 主色的浅灰变化 */
+  --md-primary-bg-color: #252A34; /* 主色背景上的文字 */
+  --md-accent-fg-color: #4969A8; /* 交互强调色：低饱和蓝 */
+
+  --md-typeset-color: #252A34; /* 正文排版颜色 */
+  --md-typeset-a-color: #4969A8; /* 正文链接颜色 */
+
+  --md-code-bg-color: #F4F5F7; /* 代码块背景 */
+  --md-code-fg-color: #252A34; /* 代码块默认文字 */
+}
+
+
+/* ==================================================
+   2. 顶部导航栏
+   ================================================== */
+
+[data-md-color-scheme="default"] .md-header {
+  background-color: #FFFFFF; /* 白色背景 */
+  color: #252A34; /* 导航文字与图标使用深色 */
+  box-shadow: none; /* 移除明显阴影 */
+  border-bottom: 1px solid #E6E9EE; /* 添加极细的底部分隔线 */
+}
+
+/* 顶部搜索框：使用浅灰底色 */
+[data-md-color-scheme="default"] .md-search__form {
+  background-color: #F4F5F7;
+  border-radius: 6px;
+}
+
+/* 顶部导航中的链接 */
+[data-md-color-scheme="default"] .md-header a {
+  color: #252A34;
+}
+
+
+/* ==================================================
+   3. 左侧导航栏
+   ================================================== */
+
+/* 左侧导航采用浅灰白背景 */
+[data-md-color-scheme="default"] .md-sidebar {
+  background-color: #FFFFFF;
+}
+
+/* 导航分组标题使用蓝灰色 */
+[data-md-color-scheme="default"] .md-nav__title {
+  color: #667085;
+}
+
+/* 普通导航链接 */
+[data-md-color-scheme="default"] .md-nav__link {
+  color: #667085;
+  transition: color 0.15s ease;
+}
+
+/* 鼠标悬停的导航链接 */
+[data-md-color-scheme="default"] .md-nav__link:hover {
+  color: #4969A8;
+}
+
+/* 当前选中的导航链接 */
+[data-md-color-scheme="default"] .md-nav__link--active {
+  color: #4969A8;
+  font-weight: 600;
+}
+
+
+/* ==================================================
+   4. 正文与标题
+   ================================================== */
+
+/* 一级标题 */
+[data-md-color-scheme="default"] .md-typeset h1 {
+  color: #252A34;
+  font-weight: 700;
+  letter-spacing: -0.025em; /* 轻微收紧字距 */
+}
+
+/* 二级和三级标题 */
+[data-md-color-scheme="default"] .md-typeset h2,
+[data-md-color-scheme="default"] .md-typeset h3 {
+  color: #252A34;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+/* 正文链接 */
+[data-md-color-scheme="default"] .md-typeset a {
+  color: #4969A8;
+}
+
+/* 链接悬停时稍微加深 */
+[data-md-color-scheme="default"] .md-typeset a:hover {
+  color: #344F86;
+}
+
+
+/* ==================================================
+   5. 代码块
+   ================================================== */
+
+/* 代码块使用冷灰背景与细边框 */
+[data-md-color-scheme="default"] .highlight pre,
+[data-md-color-scheme="default"] .md-typeset pre {
+  background-color: #F4F5F7;
+  border: 1px solid #E6E9EE;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+/* 行内代码 */
+[data-md-color-scheme="default"] .md-typeset code {
+  background-color: #F4F5F7;
+  color: #344F86;
+  border-radius: 3px;
+  padding: 0.1em 0.25em;
+}
+
+/* 代码块内部不重复添加行内代码背景 */
+[data-md-color-scheme="default"] .highlight code,
+[data-md-color-scheme="default"] .md-typeset pre code {
+  background-color: transparent;
+  color: inherit;
+  border: 0;
+  padding: 0;
+}
+
+
+/* ==================================================
+   6. 表格
+   ================================================== */
+
+/* 表格边框使用浅灰色 */
+[data-md-color-scheme="default"] .md-typeset table:not([class]) {
+  border: 1px solid #E6E9EE;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* 表格表头使用浅灰背景 */
+[data-md-color-scheme="default"] .md-typeset table:not([class]) th {
+  background-color: #F4F5F7;
+  color: #252A34;
+  font-weight: 600;
+}
+
+/* 表格单元格使用细分隔线 */
+[data-md-color-scheme="default"] .md-typeset table:not([class]) td,
+[data-md-color-scheme="default"] .md-typeset table:not([class]) th {
+  border-color: #E6E9EE;
+}
+
+
+/* ==================================================
+   7. 提示框
+   ================================================== */
+
+/* 普通提示框采用中性色，不增加多余装饰 */
+[data-md-color-scheme="default"] .md-typeset .admonition,
+[data-md-color-scheme="default"] .md-typeset details {
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+/* 提示框标题区域使用浅灰色 */
+[data-md-color-scheme="default"] .md-typeset .admonition-title,
+[data-md-color-scheme="default"] .md-typeset summary {
+  background-color: #F4F5F7;
+}
+
+
+/* ==================================================
+   8. 内容分隔线
+   ================================================== */
+
+[data-md-color-scheme="default"] .md-typeset hr {
+  border-bottom-color: #E6E9EE;
+}
+
+
+/* ==================================================
+   9. 页面底部
+   ================================================== */
+
+[data-md-color-scheme="default"] .md-footer {
+  background-color: #252A34;
+  color: #FFFFFF;
+}
+
+/* 页脚中的链接使用柔和的浅蓝色 */
+[data-md-color-scheme="default"] .md-footer a {
+  color: #D6E0F5;
+}
