@@ -116,3 +116,6 @@ extra_javascript:
 
 extra_css:
   - stylesheets/extra.css  # 加载 docs/stylesheets/extra.css 中的自定义样式
+
+
+#mkdocs gh-deploy 将会自动将 docs 目录下的内容部署到 GitHub Pages 上，部署后访问 https://shangzhib.github.io/Shangzb.github.io/ 即可看到网站。

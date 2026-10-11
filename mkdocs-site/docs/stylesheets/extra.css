@@ -204,3 +204,247 @@
 [data-md-color-scheme="default"] .md-footer a {
   color: #D6E0F5;
 }
+
+
+/* ==================================================
+   Swiss Minimal：深色模式
+   对应 Material for MkDocs 的 slate 配色方案
+   ================================================== */
+
+
+/* ==================================================
+   1. 全局颜色变量
+   ================================================== */
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #1C212B; /* 页面主背景 */
+  --md-default-bg-color--light: #252C38; /* 次级背景 */
+  --md-default-bg-color--lighter: #2B3341; /* 更高一级的背景 */
+  --md-default-bg-color--lightest: #343E4D; /* 浅层背景 */
+
+  --md-default-fg-color: #E6EAF0; /* 正文文字 */
+  --md-default-fg-color--light: #A0AABC; /* 次级文字 */
+  --md-default-fg-color--lighter: #7E899D; /* 弱化文字 */
+  --md-default-fg-color--lightest: #465164; /* 辅助边界 */
+
+  --md-primary-fg-color: #252C38; /* 主题主色 */
+  --md-primary-fg-color--dark: #1C212B; /* 主色的深色变化 */
+  --md-primary-bg-color: #E6EAF0; /* 主色背景上的文字 */
+  --md-accent-fg-color: #8FAEFF; /* 交互强调蓝 */
+
+  --md-typeset-color: #E6EAF0; /* 正文排版颜色 */
+  --md-typeset-a-color: #8FAEFF; /* 正文链接颜色 */
+
+  --md-code-bg-color: #252C38; /* 代码块背景 */
+  --md-code-fg-color: #E6EAF0; /* 代码块文字 */
+}
+
+
+/* ==================================================
+   2. 顶部导航栏
+   ================================================== */
+
+[data-md-color-scheme="slate"] .md-header {
+  background-color: #1C212B;
+  color: #E6EAF0;
+  box-shadow: none;
+  border-bottom: 1px solid #343E4D;
+}
+
+/* 顶部导航链接 */
+[data-md-color-scheme="slate"] .md-header a {
+  color: #E6EAF0;
+}
+
+/* 顶部搜索框 */
+[data-md-color-scheme="slate"] .md-search__form {
+  background-color: #252C38;
+  border: 1px solid #343E4D;
+  border-radius: 6px;
+}
+
+/* 搜索输入文字 */
+[data-md-color-scheme="slate"] .md-search__input {
+  color: #E6EAF0;
+}
+
+/* 搜索提示文字 */
+[data-md-color-scheme="slate"] .md-search__input::placeholder {
+  color: #A0AABC;
+}
+
+
+/* ==================================================
+   3. 左侧导航栏
+   ================================================== */
+
+[data-md-color-scheme="slate"] .md-sidebar {
+  background-color: #1C212B;
+}
+
+/* 导航分组标题 */
+[data-md-color-scheme="slate"] .md-nav__title {
+  color: #A0AABC;
+}
+
+/* 普通导航链接 */
+[data-md-color-scheme="slate"] .md-nav__link {
+  color: #A0AABC;
+  transition: color 0.15s ease;
+}
+
+/* 鼠标悬停 */
+[data-md-color-scheme="slate"] .md-nav__link:hover {
+  color: #8FAEFF;
+}
+
+/* 当前选中的导航链接 */
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  color: #8FAEFF;
+  font-weight: 600;
+}
+
+
+/* ==================================================
+   4. 正文与标题
+   ================================================== */
+
+/* 一级标题 */
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  color: #E6EAF0;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+/* 二级、三级标题 */
+[data-md-color-scheme="slate"] .md-typeset h2,
+[data-md-color-scheme="slate"] .md-typeset h3 {
+  color: #E6EAF0;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+/* 正文链接 */
+[data-md-color-scheme="slate"] .md-typeset a {
+  color: #8FAEFF;
+}
+
+/* 链接悬停 */
+[data-md-color-scheme="slate"] .md-typeset a:hover {
+  color: #B6C9FF;
+}
+
+
+/* ==================================================
+   5. 代码块
+   ================================================== */
+
+/* 代码块容器 */
+[data-md-color-scheme="slate"] .highlight pre,
+[data-md-color-scheme="slate"] .md-typeset pre {
+  background-color: #252C38;
+  border: 1px solid #343E4D;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+/* 行内代码 */
+[data-md-color-scheme="slate"] .md-typeset code {
+  background-color: #252C38;
+  color: #B6C9FF;
+  border-radius: 3px;
+  padding: 0.1em 0.25em;
+}
+
+/* 避免代码块中的代码被行内代码样式覆盖 */
+[data-md-color-scheme="slate"] .highlight code,
+[data-md-color-scheme="slate"] .md-typeset pre code {
+  background-color: transparent;
+  color: inherit;
+  border: 0;
+  padding: 0;
+}
+
+/* 代码块行号 */
+[data-md-color-scheme="slate"] .highlight .linenos {
+  color: #7E899D;
+  background-color: transparent;
+}
+
+
+/* ==================================================
+   6. 表格
+   ================================================== */
+
+/* 表格边框 */
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  border: 1px solid #343E4D;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* 表格表头 */
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background-color: #252C38;
+  color: #E6EAF0;
+  font-weight: 600;
+}
+
+/* 表格内容与边框 */
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) td,
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  border-color: #343E4D;
+}
+
+
+/* ==================================================
+   7. 提示框
+   ================================================== */
+
+/* 提示框外观 */
+[data-md-color-scheme="slate"] .md-typeset .admonition,
+[data-md-color-scheme="slate"] .md-typeset details {
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+/* 提示框标题 */
+[data-md-color-scheme="slate"] .md-typeset .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset summary {
+  background-color: #252C38;
+  color: #E6EAF0;
+}
+
+
+/* ==================================================
+   8. 分隔线
+   ================================================== */
+
+[data-md-color-scheme="slate"] .md-typeset hr {
+  border-bottom-color: #343E4D;
+}
+
+
+/* ==================================================
+   9. 页面底部
+   ================================================== */
+
+[data-md-color-scheme="slate"] .md-footer {
+  background-color: #171B23;
+  color: #E6EAF0;
+}
+
+/* 页脚链接 */
+[data-md-color-scheme="slate"] .md-footer a {
+  color: #B6C9FF;
+}
+
+
+/* ==================================================
+   10. 选中文本
+   ================================================== */
+
+[data-md-color-scheme="slate"] ::selection {
+  background-color: #3A4D70;
+  color: #FFFFFF;
+}
