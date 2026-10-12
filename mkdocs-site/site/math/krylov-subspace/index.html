@@ -1,0 +1,2302 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="记录学习过程与个人思考。">
+      
+      
+        <meta name="author" content="尚志兵 (Shangzb)">
+      
+      
+        <link rel="canonical" href="https://shangzhib.github.io/Shangzb.github.io/math/krylov-subspace/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>克雷列夫子空间 - Shane 的知识浅池</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Shane 的知识浅池" class="md-header__button md-logo" aria-label="Shane 的知识浅池" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Shane 的知识浅池
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              克雷列夫子空间
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m3.55 19.09 1.41 1.41 1.8-1.79-1.42-1.42M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6c0-3.32-2.69-6-6-6m8 7h3v-2h-3m-2.76 7.71 1.8 1.79 1.41-1.41-1.79-1.8M20.45 5l-1.41-1.4-1.8 1.79 1.42 1.42M13 1h-2v3h2M6.76 5.39 4.96 3.6 3.55 5l1.79 1.81zM1 13h3v-2H1m12 9h-2v3h2"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shangzhib/Shangzb.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Shangzb.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  数学
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp/" class="md-tabs__link">
+          
+  
+  
+  C++ 与工程开发
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ai/" class="md-tabs__link">
+          
+  
+  
+  AI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../thoughts/" class="md-tabs__link">
+          
+  
+  
+  随想与成长
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  关于
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Shane 的知识浅池" class="md-nav__button md-logo" aria-label="Shane 的知识浅池" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Shane 的知识浅池
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shangzhib/Shangzb.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Shangzb.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    克雷列夫子空间
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    克雷列夫子空间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="本页目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      本页目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../calculus.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高等数学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear-algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    线性代数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../numerical-analysis.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fem.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    有限元与数值求解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ 与工程开发
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++ 与工程开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp/cpp-basics.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ 基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp/algorithms.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据结构与算法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp/cuda.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CUDA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp/engineering.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程实践
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI 索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai/machine-learning.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai/deep-learning.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    深度学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai/papers-and-tools.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    论文与工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    随想与成长
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    随想与成长
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../thoughts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思考随笔
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../thoughts/learning-review.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    学习复盘
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关于
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="本页目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      本页目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">子空间与克雷洛夫子空间：从基础概念到求解原理<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>适用对象：</strong> 正在学习线性代数、数值线性代数，想弄懂“子空间是什么”“为什么一条直线也是子空间”“克雷洛夫子空间为什么能帮助求解线性方程组”的读者。<br />
+<strong>阅读建议：</strong> 按章节顺序学习。重点不是死记公式，而是弄清楚每个符号代表什么、公式描述了哪些向量，以及这些向量为什么会组成一个空间。</p>
+</blockquote>
+<h2 id="_2">目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#section-1">先建立整体认识</a></li>
+<li><a href="#section-2">什么是向量空间与子空间</a></li>
+<li><a href="#section-3">为什么子空间必须经过原点</a></li>
+<li><a href="#section-4">从 <span class="arithmatex">\(y=-x\)</span> 理解参数形式和直线</a></li>
+<li><a href="#section-5">什么是线性组合与张成空间 Span</a></li>
+<li><a href="#section-6">克雷洛夫子空间的定义</a></li>
+<li><a href="#section-7">手算一个克雷洛夫子空间的例子</a></li>
+<li><a href="#section-8">克雷洛夫子空间的重要性质</a></li>
+<li><a href="#section-9"><span class="arithmatex">\(\mathbb R^n\)</span> 是什么意思</a></li>
+<li><a href="#section-10">为什么限制在克雷洛夫子空间里找解</a></li>
+<li><a href="#section-11">为什么最终有可能找到原方程的精确解</a></li>
+<li><a href="#section-12">为什么不直接使用最高阶子空间</a></li>
+<li><a href="#section-13">克雷洛夫方法与 GMRES、CG、Arnoldi、Lanczos 的关系</a></li>
+<li><a href="#section-14">常见误解与快速检查</a></li>
+<li><a href="#section-15">核心公式汇总</a></li>
+</ol>
+<hr />
+<h1 id="section-1">1. 先建立整体认识<a class="headerlink" href="#section-1" title="Permanent link">&para;</a></h1>
+<p>理解克雷洛夫子空间（Krylov subspace），可以沿着下面这条路线：</p>
+<ol>
+<li>先理解<strong>子空间</strong>：什么样的向量集合本身也构成一个向量空间？</li>
+<li>再理解<strong>张成空间</strong>：给定几个向量，把它们的所有线性组合收集起来，会得到什么？</li>
+<li>最后理解<strong>克雷洛夫子空间</strong>：从一个初始向量 <span class="arithmatex">\(b\)</span> 出发，不断计算 <span class="arithmatex">\(Ab,A^2b,A^3b,\ldots\)</span>，再取这些向量的张成空间。</li>
+</ol>
+<p>克雷洛夫子空间的核心公式是：</p>
+<div class="arithmatex">\[
+\boxed{\mathcal K_m(A,b)=\operatorname{span}\{b,Ab,A^2b,\ldots,A^{m-1}b\}}
+\]</div>
+<p>其中：</p>
+<ul>
+<li><span class="arithmatex">\(A\)</span> 是一个 <span class="arithmatex">\(n\times n\)</span> 方阵；</li>
+<li><span class="arithmatex">\(b\)</span> 是一个有 <span class="arithmatex">\(n\)</span> 个分量的初始向量；</li>
+<li><span class="arithmatex">\(A^j b\)</span> 表示矩阵 <span class="arithmatex">\(A\)</span> 连续作用于向量 <span class="arithmatex">\(b\)</span> 共 <span class="arithmatex">\(j\)</span> 次；</li>
+<li><span class="arithmatex">\(\operatorname{span}\)</span> 表示取所有可能的线性组合；</li>
+<li><span class="arithmatex">\(m\)</span> 是子空间的阶数。</li>
+</ul>
+<p>先记住这个直观说法：</p>
+<blockquote>
+<p><strong>克雷洛夫子空间 = 由同一个矩阵 <span class="arithmatex">\(A\)</span> 对初始向量 <span class="arithmatex">\(b\)</span> 反复作用得到的一组向量，所张成的空间。</strong></p>
+</blockquote>
+<p>它是一般子空间的一种特殊构造方式，而不是和“普通子空间”并列、毫无关系的另一种东西。</p>
+<h1 id="section-2">2. 什么是向量空间与子空间<a class="headerlink" href="#section-2" title="Permanent link">&para;</a></h1>
+<h2 id="21">2.1 什么是向量<a class="headerlink" href="#21" title="Permanent link">&para;</a></h2>
+<p>在二维实空间里，一个向量可以写成：</p>
+<div class="arithmatex">\[
+\mathbf x=\begin{bmatrix}x_1\\x_2\end{bmatrix},\qquad x_1,x_2\in\mathbb R
+\]</div>
+<p>这里 <span class="arithmatex">\(x_1,x_2\)</span> 是实数。我们可以把向量看成一个有两个分量的对象，也可以在几何上把它画成一支箭头。</p>
+<p>例如：</p>
+<div class="arithmatex">\[
+\begin{bmatrix}1\\2\end{bmatrix}
++\begin{bmatrix}3\\4\end{bmatrix}
+=\begin{bmatrix}4\\6\end{bmatrix}
+\]</div>
+<p>以及：</p>
+<div class="arithmatex">\[
+2\begin{bmatrix}1\\2\end{bmatrix}
+=\begin{bmatrix}2\\4\end{bmatrix}
+\]</div>
+<p>这两类运算分别叫作<strong>向量加法</strong>和<strong>数乘</strong>。线性代数中的向量空间，就是一个能够进行向量加法、数乘，并满足相关运算规则的集合。</p>
+<h2 id="22">2.2 子空间是什么<a class="headerlink" href="#22" title="Permanent link">&para;</a></h2>
+<p><strong>子空间是一个较大的向量空间中的一个子集，而且这个子集本身也必须是向量空间。</strong></p>
+<p>例如，在三维空间 <span class="arithmatex">\(\mathbb R^3\)</span> 中，以下集合都是子空间：</p>
+<h3 id="a">例子 A：一条经过原点的直线<a class="headerlink" href="#a" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+W=\left\{t\begin{bmatrix}1\\0\\0\end{bmatrix}:t\in\mathbb R\right\}
+\]</div>
+<p>它包含所有形如 <span class="arithmatex">\((t,0,0)\)</span> 的向量，也就是三维空间中沿着第一坐标轴的所有向量。</p>
+<h3 id="b">例子 B：一个经过原点的平面<a class="headerlink" href="#b" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+W=\left\{\begin{bmatrix}x\\y\\0\end{bmatrix}:x,y\in\mathbb R\right\}
+\]</div>
+<p>这个集合包含所有第三个分量为零的向量，几何上是 <span class="arithmatex">\(xy\)</span> 平面。</p>
+<h3 id="c">例子 C：整个三维空间<a class="headerlink" href="#c" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+W=\mathbb R^3
+\]</div>
+<p>一个空间当然也是它自身的子空间。</p>
+<h2 id="23">2.3 如何判断一个集合是不是子空间<a class="headerlink" href="#23" title="Permanent link">&para;</a></h2>
+<p>设 <span class="arithmatex">\(V\)</span> 是向量空间，<span class="arithmatex">\(W\subseteq V\)</span>。判断 <span class="arithmatex">\(W\)</span> 是否为子空间，常用三个条件：</p>
+<ol>
+<li><strong>包含零向量</strong>：<span class="arithmatex">\(\mathbf 0\in W\)</span>。</li>
+<li><strong>对加法封闭</strong>：如果 <span class="arithmatex">\(\mathbf u,\mathbf v\in W\)</span>，则 <span class="arithmatex">\(\mathbf u+\mathbf v\in W\)</span>。</li>
+<li><strong>对数乘封闭</strong>：如果 <span class="arithmatex">\(\mathbf u\in W\)</span>，且 <span class="arithmatex">\(c\)</span> 是实数，则 <span class="arithmatex">\(c\mathbf u\in W\)</span>。</li>
+</ol>
+<p>“封闭”是什么意思？就是在集合里面进行允许的运算，结果依旧留在集合里面，不会跑出去。</p>
+<p>对实向量空间来说，也常把后两个条件合在一起写成：对任意 <span class="arithmatex">\(\mathbf u,\mathbf v\in W\)</span> 以及任意实数 <span class="arithmatex">\(a,b\)</span>，都有</p>
+<div class="arithmatex">\[
+a\mathbf u+b\mathbf v\in W
+\]</div>
+<p>如果 <span class="arithmatex">\(W\)</span> 非空并满足这个条件，它就是子空间；因为令 <span class="arithmatex">\(a=b=0\)</span> 就能得到零向量，令系数分别取 <span class="arithmatex">\(1\)</span> 就得到加法封闭，令其中一个系数为 <span class="arithmatex">\(0\)</span> 就得到数乘封闭。</p>
+<h2 id="24">2.4 一个是子空间、一个不是子空间的例子<a class="headerlink" href="#24" title="Permanent link">&para;</a></h2>
+<p>考虑集合：</p>
+<div class="arithmatex">\[
+W=\left\{\begin{bmatrix}x\\y\end{bmatrix}:x+y=0\right\}
+\]</div>
+<p>因为 <span class="arithmatex">\(x+y=0\)</span> 等价于 <span class="arithmatex">\(y=-x\)</span>，所以它包含所有形如 <span class="arithmatex">\((x,-x)\)</span> 的向量。这个集合包含零向量，并且相加或数乘后仍然满足 <span class="arithmatex">\(x+y=0\)</span>，因此是子空间。</p>
+<p>再看：</p>
+<div class="arithmatex">\[
+U=\left\{\begin{bmatrix}x\\y\end{bmatrix}:x+y=1\right\}
+\]</div>
+<p>零向量 <span class="arithmatex">\((0,0)\)</span> 不满足 <span class="arithmatex">\(x+y=1\)</span>，所以 <span class="arithmatex">\(U\)</span> 不是子空间。</p>
+<p>这两个集合看起来都像直线，但前者经过原点，后者不经过原点。这正是它们是否为线性子空间的关键区别。</p>
+<h1 id="section-3">3. 为什么子空间必须经过原点<a class="headerlink" href="#section-3" title="Permanent link">&para;</a></h1>
+<p>这个问题很自然：为什么总强调子空间要经过原点？</p>
+<p>因为<strong>任何向量空间都必须包含零向量</strong>。在二维坐标平面里，零向量就是：</p>
+<div class="arithmatex">\[
+\mathbf 0=\begin{bmatrix}0\\0\end{bmatrix}
+\]</div>
+<p>而零向量在几何上对应原点 <span class="arithmatex">\((0,0)\)</span>。</p>
+<p>因此，如果某个集合是一条直线，但这条直线没有经过原点，那么它就没有包含零向量，必然不是线性子空间。</p>
+<p>例如：</p>
+<ul>
+<li><span class="arithmatex">\(y=-x\)</span> 经过原点，因为 <span class="arithmatex">\((0,0)\)</span> 满足 <span class="arithmatex">\(0=-0\)</span>。</li>
+<li><span class="arithmatex">\(y=2x+1\)</span> 不经过原点，因为把 <span class="arithmatex">\(x=0,y=0\)</span> 代入后得到 <span class="arithmatex">\(0=1\)</span>，不成立。</li>
+</ul>
+<p><strong>注意：</strong> 不是说所有经过原点的集合都是子空间。它还必须对向量加法和数乘封闭。对于二维平面中的一条直线，经过原点的直线确实是子空间；但对更一般的集合，还需要检查完整的子空间条件。</p>
+<h1 id="section-4">4. 从 <span class="arithmatex">\(y=-x\)</span> 理解参数形式和直线<a class="headerlink" href="#section-4" title="Permanent link">&para;</a></h1>
+<p>这是一个很重要的基础问题。我们要仔细区分：一个向量、一个点，以及一组向量构成的集合。</p>
+<h2 id="41-xy0-y-x">4.1 从条件 <span class="arithmatex">\(x+y=0\)</span> 得到 <span class="arithmatex">\(y=-x\)</span><a class="headerlink" href="#41-xy0-y-x" title="Permanent link">&para;</a></h2>
+<p>假设：</p>
+<div class="arithmatex">\[
+x+y=0
+\]</div>
+<p>将 <span class="arithmatex">\(x\)</span> 移到等号右边，就得到：</p>
+<div class="arithmatex">\[
+y=-x
+\]</div>
+<p>这意味着只要指定了 <span class="arithmatex">\(x\)</span>，<span class="arithmatex">\(y\)</span> 就随之确定。取不同的 <span class="arithmatex">\(x\)</span>，就会得到不同的点：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><span class="arithmatex">\(x\)</span></th>
+<th style="text-align: right;"><span class="arithmatex">\(y=-x\)</span></th>
+<th>坐标 <span class="arithmatex">\((x,y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+<td><span class="arithmatex">\((0,0)\)</span></td>
+</tr>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(1\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(-1\)</span></td>
+<td><span class="arithmatex">\((1,-1)\)</span></td>
+</tr>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(2\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(-2\)</span></td>
+<td><span class="arithmatex">\((2,-2)\)</span></td>
+</tr>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(3\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(-3\)</span></td>
+<td><span class="arithmatex">\((3,-3)\)</span></td>
+</tr>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(-1\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(1\)</span></td>
+<td><span class="arithmatex">\((-1,1)\)</span></td>
+</tr>
+<tr>
+<td style="text-align: right;"><span class="arithmatex">\(-2\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(2\)</span></td>
+<td><span class="arithmatex">\((-2,2)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>这些点并不是彼此随意分散的，它们都落在同一条直线上。</p>
+<h2 id="42-xbeginbmatrix1-1endbmatrix">4.2 为什么能把向量写成 <span class="arithmatex">\(x\begin{bmatrix}1\\-1\end{bmatrix}\)</span>？<a class="headerlink" href="#42-xbeginbmatrix1-1endbmatrix" title="Permanent link">&para;</a></h2>
+<p>满足 <span class="arithmatex">\(y=-x\)</span> 的向量为：</p>
+<div class="arithmatex">\[
+\begin{bmatrix}x\\y\end{bmatrix}
+=\begin{bmatrix}x\\-x\end{bmatrix}
+\]</div>
+<p>把共同的因子 <span class="arithmatex">\(x\)</span> 提出来：</p>
+<div class="arithmatex">\[
+\begin{bmatrix}x\\-x\end{bmatrix}
+=x\begin{bmatrix}1\\-1\end{bmatrix}
+\]</div>
+<p>为什么成立？因为向量数乘规定为：</p>
+<div class="arithmatex">\[
+x\begin{bmatrix}1\\-1\end{bmatrix}
+=\begin{bmatrix}x\cdot 1\\x\cdot(-1)\end{bmatrix}
+=\begin{bmatrix}x\\-x\end{bmatrix}
+\]</div>
+<p>这只是同一个向量的两种写法，并没有改变它。</p>
+<h2 id="43-x-t">4.3 为什么又把 <span class="arithmatex">\(x\)</span> 写成 <span class="arithmatex">\(t\)</span>？<a class="headerlink" href="#43-x-t" title="Permanent link">&para;</a></h2>
+<p>我们可以把 <span class="arithmatex">\(x\)</span> 改用字母 <span class="arithmatex">\(t\)</span> 表示，因为这里的 <span class="arithmatex">\(x\)</span> 是一个可以取任意实数的参数。字母叫什么并不重要，重要的是它可以取遍所有实数。于是：</p>
+<div class="arithmatex">\[
+\begin{bmatrix}x\\-x\end{bmatrix}
+=t\begin{bmatrix}1\\-1\end{bmatrix},\qquad t\in\mathbb R
+\]</div>
+<p>所以集合可以写成：</p>
+<div class="arithmatex">\[
+\boxed{W=\left\{t\begin{bmatrix}1\\-1\end{bmatrix}:t\in\mathbb R\right\}}
+\]</div>
+<p>这是一种<strong>参数表示法</strong>：用一个参数 <span class="arithmatex">\(t\)</span> 来描述集合中的所有向量。</p>
+<h2 id="44">4.4 大括号和冒号分别是什么意思<a class="headerlink" href="#44" title="Permanent link">&para;</a></h2>
+<p>表达式</p>
+<div class="arithmatex">\[
+\left\{t\begin{bmatrix}1\\-1\end{bmatrix}:t\in\mathbb R\right\}
+\]</div>
+<p>可以读作：</p>
+<blockquote>
+<p>所有形如 <span class="arithmatex">\(t\begin{bmatrix}1\\-1\end{bmatrix}\)</span> 的向量所组成的集合，其中 <span class="arithmatex">\(t\)</span> 是任意实数。</p>
+</blockquote>
+<p>这里：</p>
+<ul>
+<li>大括号 <code>\{ \}</code> 表示一个集合；</li>
+<li>冒号 <code>:</code> 可以读成“满足……条件的”或“其中……”；</li>
+<li><span class="arithmatex">\(t\in\mathbb R\)</span> 表示 <span class="arithmatex">\(t\)</span> 是实数；</li>
+<li><span class="arithmatex">\(t\begin{bmatrix}1\\-1\end{bmatrix}\)</span> 表示用 <span class="arithmatex">\(t\)</span> 乘一个固定向量。</li>
+</ul>
+<p>例如：</p>
+<p>当 <span class="arithmatex">\(t=3\)</span> 时，</p>
+<div class="arithmatex">\[
+3\begin{bmatrix}1\\-1\end{bmatrix}
+=\begin{bmatrix}3\\-3\end{bmatrix}
+\]</div>
+<p>当 <span class="arithmatex">\(t=-2\)</span> 时，</p>
+<div class="arithmatex">\[
+-2\begin{bmatrix}1\\-1\end{bmatrix}
+=\begin{bmatrix}-2\\2\end{bmatrix}
+\]</div>
+<p>当 <span class="arithmatex">\(t=0\)</span> 时，</p>
+<div class="arithmatex">\[
+0\begin{bmatrix}1\\-1\end{bmatrix}
+=\begin{bmatrix}0\\0\end{bmatrix}
+\]</div>
+<p>因为 <span class="arithmatex">\(t\)</span> 可以取遍正数、负数和零，就会得到直线上的所有点。</p>
+<h2 id="45">4.5 “这个明明是一个点，为什么说它是一条直线？”<a class="headerlink" href="#45" title="Permanent link">&para;</a></h2>
+<p>这里容易混淆两件事：</p>
+<p><strong>一个固定向量：</strong></p>
+<div class="arithmatex">\[
+\mathbf v=\begin{bmatrix}1\\-1\end{bmatrix}
+\]</div>
+<p>这个向量是一个确定的向量。在坐标图上，可以把它画成一支从原点 <span class="arithmatex">\((0,0)\)</span> 出发、指向 <span class="arithmatex">\((1,-1)\)</span> 的箭头。箭头的终点确实只有一个点 <span class="arithmatex">\((1,-1)\)</span>。</p>
+<p><strong>这个向量的所有实数倍：</strong></p>
+<div class="arithmatex">\[
+\left\{t\begin{bmatrix}1\\-1\end{bmatrix}:t\in\mathbb R\right\}
+\]</div>
+<p>这不是单独一个向量，而是一个集合。<span class="arithmatex">\(t\)</span> 不断变化时，它会包含 <span class="arithmatex">\((1,-1)\)</span>、<span class="arithmatex">\((2,-2)\)</span>、<span class="arithmatex">\((-1,1)\)</span>、<span class="arithmatex">\((0,0)\)</span> 等无穷多个点。所有这些点位于同一条直线上。</p>
+<p>所以请区分：</p>
+<ul>
+<li><span class="arithmatex">\(\begin{bmatrix}1\\-1\end{bmatrix}\)</span>：一个具体的向量；</li>
+<li><span class="arithmatex">\(t\begin{bmatrix}1\\-1\end{bmatrix}\)</span>：给定 <span class="arithmatex">\(t\)</span> 后得到的一个向量；</li>
+<li><span class="arithmatex">\(\{t\begin{bmatrix}1\\-1\end{bmatrix}:t\in\mathbb R\}\)</span>：让 <span class="arithmatex">\(t\)</span> 取遍所有实数后得到的向量集合，在几何上是一条直线。</li>
+</ul>
+<h2 id="46">4.6 为什么说这条直线经过原点<a class="headerlink" href="#46" title="Permanent link">&para;</a></h2>
+<p>因为在参数集合中允许 <span class="arithmatex">\(t=0\)</span>：</p>
+<div class="arithmatex">\[
+0\begin{bmatrix}1\\-1\end{bmatrix}
+=\begin{bmatrix}0\\0\end{bmatrix}
+\]</div>
+<p>所以原点一定属于这个集合。集合同时还包含其他点，例如 <span class="arithmatex">\((1,-1)\)</span> 和 <span class="arithmatex">\((-1,1)\)</span>。因此它不是只有原点这一个点，而是一条经过原点的直线。</p>
+<p><strong>一句话总结：一个非零向量的所有实数倍构成一条经过原点、方向由该向量决定的直线。</strong></p>
+<h1 id="section-5">5. 什么是线性组合与张成空间 Span<a class="headerlink" href="#section-5" title="Permanent link">&para;</a></h1>
+<h2 id="51">5.1 线性组合是什么<a class="headerlink" href="#51" title="Permanent link">&para;</a></h2>
+<p>给定若干个向量，如果用一些数分别乘这些向量，再把结果相加，就叫作线性组合。</p>
+<p>例如给定：</p>
+<div class="arithmatex">\[
+\mathbf v_1=\begin{bmatrix}1\\0\end{bmatrix},\qquad
+\mathbf v_2=\begin{bmatrix}0\\1\end{bmatrix}
+\]</div>
+<p>它们的一个线性组合是：</p>
+<div class="arithmatex">\[
+a\mathbf v_1+b\mathbf v_2
+=\begin{bmatrix}a\\b\end{bmatrix}
+\]</div>
+<p>其中 <span class="arithmatex">\(a,b\)</span> 可以是任意实数。</p>
+<p>如果取 <span class="arithmatex">\(a=2,b=3\)</span>，就得到 <span class="arithmatex">\((2,3)\)</span>；如果取 <span class="arithmatex">\(a=-1,b=4\)</span>，就得到 <span class="arithmatex">\((-1,4)\)</span>。因为两个系数都可以任意取值，所以可以得到整个二维平面。</p>
+<h2 id="52">5.2 张成空间的定义<a class="headerlink" href="#52" title="Permanent link">&para;</a></h2>
+<p>给定一组向量 <span class="arithmatex">\(\mathbf v_1,\ldots,\mathbf v_k\)</span>，这些向量的张成空间定义为它们所有线性组合形成的集合：</p>
+<div class="arithmatex">\[
+\operatorname{span}\{\mathbf v_1,\ldots,\mathbf v_k\}
+=\left\{\sum_{i=1}^k c_i\mathbf v_i:c_i\in\mathbb R\right\}
+\]</div>
+<p>通俗地说：</p>
+<blockquote>
+<p><strong>张成空间就是让所有系数任意变化，把给定向量的所有线性组合都收集起来所得到的空间。</strong></p>
+</blockquote>
+<p>张成空间是包含这组向量的最小子空间。</p>
+<h2 id="53">5.3 一个向量可以张成什么空间<a class="headerlink" href="#53" title="Permanent link">&para;</a></h2>
+<p>如果 <span class="arithmatex">\(\mathbf v\)</span> 是一个非零向量，那么：</p>
+<div class="arithmatex">\[
+\operatorname{span}\{\mathbf v\}
+=\{t\mathbf v:t\in\mathbb R\}
+\]</div>
+<p>它通常是一条经过原点的直线。</p>
+<p>如果 <span class="arithmatex">\(\mathbf v=\mathbf 0\)</span>，那么：</p>
+<div class="arithmatex">\[
+\operatorname{span}\{\mathbf 0\}=\{\mathbf 0\}
+\]</div>
+<p>此时只有零向量，空间维数为 <span class="arithmatex">\(0\)</span>，所以“一个向量张成一条直线”的说法要附带向量非零这个条件。</p>
+<h2 id="54">5.4 两个向量可以张成什么空间<a class="headerlink" href="#54" title="Permanent link">&para;</a></h2>
+<p>在 <span class="arithmatex">\(\mathbb R^2\)</span> 中：</p>
+<ul>
+<li>如果两个非零向量共线，它们的张成空间仍然是一条直线；</li>
+<li>如果两个向量不共线，它们的张成空间是整个 <span class="arithmatex">\(\mathbb R^2\)</span>。</li>
+</ul>
+<p>在 <span class="arithmatex">\(\mathbb R^3\)</span> 中，两个不共线向量通常张成一个经过原点的平面。</p>
+<h2 id="55">5.5 向量的数量不等于空间维数<a class="headerlink" href="#55" title="Permanent link">&para;</a></h2>
+<p>给出 <span class="arithmatex">\(m\)</span> 个向量，它们最多张成一个 <span class="arithmatex">\(m\)</span> 维空间，但也可能更低维。这取决于向量是否线性无关。</p>
+<p>例如：</p>
+<div class="arithmatex">\[
+\mathbf v_1=\begin{bmatrix}1\\0\end{bmatrix},\qquad
+\mathbf v_2=\begin{bmatrix}2\\0\end{bmatrix}
+\]</div>
+<p>第二个向量是第一个向量的两倍，所以它们没有提供新的方向：</p>
+<div class="arithmatex">\[
+\operatorname{span}\{\mathbf v_1,\mathbf v_2\}
+=\operatorname{span}\{\mathbf v_1\}
+\]</div>
+<p>虽然有两个向量，但张成空间的维数仍然是 <span class="arithmatex">\(1\)</span>。这一点在克雷洛夫子空间中非常重要，因为 <span class="arithmatex">\(b,Ab,A^2b,\ldots\)</span> 可能出现线性相关。</p>
+<h1 id="section-6">6. 克雷洛夫子空间的定义<a class="headerlink" href="#section-6" title="Permanent link">&para;</a></h1>
+<h2 id="61">6.1 从矩阵乘法开始<a class="headerlink" href="#61" title="Permanent link">&para;</a></h2>
+<p>给定一个 <span class="arithmatex">\(n\times n\)</span> 方阵 <span class="arithmatex">\(A\)</span> 和一个向量 <span class="arithmatex">\(b\in\mathbb R^n\)</span>，依次计算：</p>
+<div class="arithmatex">\[
+b,\quad Ab,\quad A^2b,\quad A^3b,\quad\ldots
+\]</div>
+<p>这里：</p>
+<ul>
+<li><span class="arithmatex">\(b\)</span> 是初始向量；</li>
+<li><span class="arithmatex">\(Ab\)</span> 是矩阵 <span class="arithmatex">\(A\)</span> 作用一次；</li>
+<li><span class="arithmatex">\(A^2b=A(Ab)\)</span> 是矩阵 <span class="arithmatex">\(A\)</span> 作用两次；</li>
+<li><span class="arithmatex">\(A^3b=A(A^2b)\)</span> 是矩阵 <span class="arithmatex">\(A\)</span> 作用三次。</li>
+</ul>
+<p>计算时一般不需要先显式求出 <span class="arithmatex">\(A^2\)</span> 或 <span class="arithmatex">\(A^3\)</span>。可以连续递推：先算 <span class="arithmatex">\(v_0=b\)</span>，再算 <span class="arithmatex">\(v_1=Av_0\)</span>，然后算 <span class="arithmatex">\(v_2=Av_1\)</span>，依此类推。</p>
+<h2 id="62-m">6.2 第 <span class="arithmatex">\(m\)</span> 阶克雷洛夫子空间<a class="headerlink" href="#62-m" title="Permanent link">&para;</a></h2>
+<p>定义为：</p>
+<div class="arithmatex">\[
+\boxed{\mathcal K_m(A,b)=\operatorname{span}\{b,Ab,A^2b,\ldots,A^{m-1}b\}}
+\]</div>
+<p>等价地，也可以写成：</p>
+<div class="arithmatex">\[
+\mathcal K_m(A,b)
+=\left\{\sum_{j=0}^{m-1}c_jA^jb:c_j\in\mathbb R\right\}
+\]</div>
+<p>注意幂次从 <span class="arithmatex">\(0\)</span> 开始，且 <span class="arithmatex">\(A^0=I\)</span> 是单位矩阵，因此 <span class="arithmatex">\(A^0b=Ib=b\)</span>。</p>
+<p>这也解释了为什么第 <span class="arithmatex">\(m\)</span> 阶子空间包含 <span class="arithmatex">\(m\)</span> 个候选生成向量：</p>
+<div class="arithmatex">\[
+b,Ab,A^2b,\ldots,A^{m-1}b
+\]</div>
+<p>最高幂次是 <span class="arithmatex">\(m-1\)</span>，不是 <span class="arithmatex">\(m\)</span>。</p>
+<h2 id="63">6.3 二阶、三阶子空间分别是什么<a class="headerlink" href="#63" title="Permanent link">&para;</a></h2>
+<p>二阶克雷洛夫子空间：</p>
+<div class="arithmatex">\[
+\mathcal K_2(A,b)=\operatorname{span}\{b,Ab\}
+\]</div>
+<p>里面的任意向量都能写成：</p>
+<div class="arithmatex">\[
+x=c_0b+c_1Ab
+\]</div>
+<p>三阶克雷洛夫子空间：</p>
+<div class="arithmatex">\[
+\mathcal K_3(A,b)=\operatorname{span}\{b,Ab,A^2b\}
+\]</div>
+<p>里面的任意向量都能写成：</p>
+<div class="arithmatex">\[
+x=c_0b+c_1Ab+c_2A^2b
+\]</div>
+<p>这里最关键的是：<strong>克雷洛夫子空间不是仅仅把这些向量列出来，而是包含它们的全部线性组合。</strong></p>
+<h2 id="64">6.4 它为什么是一种特殊子空间<a class="headerlink" href="#64" title="Permanent link">&para;</a></h2>
+<p>一般子空间可以由很多不同方式给出，例如通过线性方程定义，或通过任意向量的张成空间定义。</p>
+<p>克雷洛夫子空间则有特定结构：它必须从某个初始向量 <span class="arithmatex">\(b\)</span> 出发，通过同一个矩阵 <span class="arithmatex">\(A\)</span> 反复作用产生向量，然后取张成空间。因此它既是一个子空间，也带有矩阵 <span class="arithmatex">\(A\)</span> 和初始向量 <span class="arithmatex">\(b\)</span> 的信息。</p>
+<h1 id="section-7">7. 手算一个克雷洛夫子空间的例子<a class="headerlink" href="#section-7" title="Permanent link">&para;</a></h1>
+<p>下面通过一个 <span class="arithmatex">\(2\times2\)</span> 矩阵，看看子空间怎样一步一步扩大，以及为什么阶数增加后维数可能不变。</p>
+<p>设：</p>
+<div class="arithmatex">\[
+A=\begin{bmatrix}1&amp;1\\1&amp;2\end{bmatrix},\qquad
+b=\begin{bmatrix}1\\0\end{bmatrix}
+\]</div>
+<h2 id="71">7.1 一阶子空间<a class="headerlink" href="#71" title="Permanent link">&para;</a></h2>
+<p>一阶克雷洛夫子空间为：</p>
+<div class="arithmatex">\[
+\mathcal K_1(A,b)=\operatorname{span}\{b\}
+\]</div>
+<p>也就是：</p>
+<div class="arithmatex">\[
+\mathcal K_1(A,b)
+=\left\{t\begin{bmatrix}1\\0\end{bmatrix}:t\in\mathbb R\right\}
+\]</div>
+<p>它是一条沿第一坐标轴的直线，维数为 <span class="arithmatex">\(1\)</span>。</p>
+<h2 id="72-ab">7.2 计算 <span class="arithmatex">\(Ab\)</span> 并得到二阶子空间<a class="headerlink" href="#72-ab" title="Permanent link">&para;</a></h2>
+<p>矩阵乘法为：</p>
+<div class="arithmatex">\[
+Ab=
+\begin{bmatrix}1&amp;1\\1&amp;2\end{bmatrix}
+\begin{bmatrix}1\\0\end{bmatrix}
+=\begin{bmatrix}1\\1\end{bmatrix}
+\]</div>
+<p>因此：</p>
+<div class="arithmatex">\[
+\mathcal K_2(A,b)=\operatorname{span}\left\{
+\begin{bmatrix}1\\0\end{bmatrix},
+\begin{bmatrix}1\\1\end{bmatrix}\right\}
+\]</div>
+<p>任意向量都可以写成：</p>
+<div class="arithmatex">\[
+c_0\begin{bmatrix}1\\0\end{bmatrix}
++c_1\begin{bmatrix}1\\1\end{bmatrix}
+=\begin{bmatrix}c_0+c_1\\c_1\end{bmatrix}
+\]</div>
+<p>对于任意目标向量 <span class="arithmatex">\(\begin{bmatrix}x\\y\end{bmatrix}\)</span>，只要取 <span class="arithmatex">\(c_1=y\)</span>、<span class="arithmatex">\(c_0=x-y\)</span>，就可以得到该向量。因此：</p>
+<div class="arithmatex">\[
+\boxed{\mathcal K_2(A,b)=\mathbb R^2}
+\]</div>
+<p>这说明 <span class="arithmatex">\(b\)</span> 和 <span class="arithmatex">\(Ab\)</span> 不共线，它们可以张成整个二维空间。</p>
+<h2 id="73-a2b">7.3 计算 <span class="arithmatex">\(A^2b\)</span> 并得到三阶子空间<a class="headerlink" href="#73-a2b" title="Permanent link">&para;</a></h2>
+<p>继续计算：</p>
+<div class="arithmatex">\[
+A^2b=A(Ab)
+=\begin{bmatrix}1&amp;1\\1&amp;2\end{bmatrix}
+\begin{bmatrix}1\\1\end{bmatrix}
+=\begin{bmatrix}2\\3\end{bmatrix}
+\]</div>
+<p>所以：</p>
+<div class="arithmatex">\[
+\mathcal K_3(A,b)=\operatorname{span}\left\{
+\begin{bmatrix}1\\0\end{bmatrix},
+\begin{bmatrix}1\\1\end{bmatrix},
+\begin{bmatrix}2\\3\end{bmatrix}
+\right\}
+\]</div>
+<p>但是，前两个向量已经张成整个 <span class="arithmatex">\(\mathbb R^2\)</span>。第三个向量无论加入与否，都不可能让空间超过二维。因此：</p>
+<div class="arithmatex">\[
+\boxed{\mathcal K_3(A,b)=\mathcal K_2(A,b)=\mathbb R^2}
+\]</div>
+<table>
+<thead>
+<tr>
+<th>子空间</th>
+<th>生成向量</th>
+<th style="text-align: right;">维数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathcal K_1\)</span></td>
+<td><span class="arithmatex">\(b\)</span></td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal K_2\)</span></td>
+<td><span class="arithmatex">\(b,Ab\)</span></td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal K_3\)</span></td>
+<td><span class="arithmatex">\(b,Ab,A^2b\)</span></td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这个例子要说明：阶数 <span class="arithmatex">\(m\)</span> 增加，只代表加入了一个候选生成向量；它不保证空间维数一定增加。</strong></p>
+<h1 id="section-8">8. 克雷洛夫子空间的重要性质<a class="headerlink" href="#section-8" title="Permanent link">&para;</a></h1>
+<h2 id="81">8.1 嵌套关系<a class="headerlink" href="#81" title="Permanent link">&para;</a></h2>
+<p>根据定义：</p>
+<div class="arithmatex">\[
+\mathcal K_1(A,b)\subseteq\mathcal K_2(A,b)\subseteq\cdots\subseteq\mathcal K_m(A,b)
+\]</div>
+<p>每提高一阶，只是多加入一个候选向量，所以旧子空间中的向量仍然在新子空间中。新向量可能增加一个独立方向，也可能已经能由旧向量线性表示。</p>
+<h2 id="82">8.2 维数上限<a class="headerlink" href="#82" title="Permanent link">&para;</a></h2>
+<p>克雷洛夫子空间最多有 <span class="arithmatex">\(m\)</span> 个生成向量，所以：</p>
+<div class="arithmatex">\[
+\dim\mathcal K_m(A,b)\le m
+\]</div>
+<p>另一方面，<span class="arithmatex">\(A\)</span> 是 <span class="arithmatex">\(n\times n\)</span> 矩阵，<span class="arithmatex">\(b\)</span> 以及所有 <span class="arithmatex">\(A^j b\)</span> 都属于 <span class="arithmatex">\(\mathbb R^n\)</span>，因此：</p>
+<div class="arithmatex">\[
+\dim\mathcal K_m(A,b)\le n
+\]</div>
+<p>综合起来：</p>
+<div class="arithmatex">\[
+\boxed{\dim\mathcal K_m(A,b)\le\min(m,n)}
+\]</div>
+<p>这里要区分三个概念：</p>
+<ul>
+<li><span class="arithmatex">\(m\)</span>：子空间的阶数；</li>
+<li>生成向量的数量：按定义是 <span class="arithmatex">\(m\)</span> 个；</li>
+<li><span class="arithmatex">\(\dim\mathcal K_m\)</span>：真正线性无关的方向数。</li>
+</ul>
+<p>第三个数量可能小于前两个。</p>
+<h2 id="83">8.3 为什么子空间可能不再扩大<a class="headerlink" href="#83" title="Permanent link">&para;</a></h2>
+<p>假设 <span class="arithmatex">\(A^2b\)</span> 可以写成前两个向量的线性组合：</p>
+<div class="arithmatex">\[
+A^2b=c_0b+c_1Ab
+\]</div>
+<p>那么 <span class="arithmatex">\(A^2b\)</span> 并没有带来新的方向，因而：</p>
+<div class="arithmatex">\[
+\mathcal K_3(A,b)=\mathcal K_2(A,b)
+\]</div>
+<p>对等式两边左乘 <span class="arithmatex">\(A\)</span>：</p>
+<div class="arithmatex">\[
+A^3b=c_0Ab+c_1A^2b
+\]</div>
+<p>右侧的 <span class="arithmatex">\(Ab\)</span> 和 <span class="arithmatex">\(A^2b\)</span> 都属于 <span class="arithmatex">\(\mathcal K_2(A,b)\)</span>，所以 <span class="arithmatex">\(A^3b\)</span> 也属于 <span class="arithmatex">\(\mathcal K_2(A,b)\)</span>。继续进行同样的推导，可知后续幂次向量也都留在这个空间中。</p>
+<p>因此，在精确算术下，一旦克雷洛夫子空间的维数停止增长，之后便不会再增长。</p>
+<h2 id="84">8.4 用多项式理解克雷洛夫子空间<a class="headerlink" href="#84" title="Permanent link">&para;</a></h2>
+<p>如果：</p>
+<div class="arithmatex">\[
+x=c_0b+c_1Ab+c_2A^2b
+\]</div>
+<p>那么可以把 <span class="arithmatex">\(b\)</span> 提到右侧：</p>
+<div class="arithmatex">\[
+x=(c_0I+c_1A+c_2A^2)b
+\]</div>
+<p>定义多项式：</p>
+<div class="arithmatex">\[
+p(t)=c_0+c_1t+c_2t^2
+\]</div>
+<p>把多项式里的变量 <span class="arithmatex">\(t\)</span> 替换成矩阵 <span class="arithmatex">\(A\)</span>，就得到：</p>
+<div class="arithmatex">\[
+p(A)=c_0I+c_1A+c_2A^2
+\]</div>
+<p>因此 <span class="arithmatex">\(x=p(A)b\)</span>。一般地：</p>
+<div class="arithmatex">\[
+\boxed{\mathcal K_m(A,b)=\{p(A)b:\deg(p)\le m-1\}}
+\]</div>
+<p>这里 <span class="arithmatex">\(p\)</span> 是次数不超过 <span class="arithmatex">\(m-1\)</span> 的多项式，零多项式也包括在内。这是克雷洛夫子空间的另一个重要表示。</p>
+<h1 id="section-9">9. <span class="arithmatex">\(\mathbb R^n\)</span> 是什么意思<a class="headerlink" href="#section-9" title="Permanent link">&para;</a></h1>
+<h2 id="91">9.1 拆开符号来看<a class="headerlink" href="#91" title="Permanent link">&para;</a></h2>
+<p><span class="arithmatex">\(\mathbb R^n\)</span> 可以读作“<span class="arithmatex">\(n\)</span> 维实向量空间”，表示所有由 <span class="arithmatex">\(n\)</span> 个实数组成的向量构成的集合。</p>
+<ul>
+<li><span class="arithmatex">\(\mathbb R\)</span> 表示实数集合，包括整数、小数等实数；</li>
+<li>上标 <span class="arithmatex">\(n\)</span> 表示每个向量有 <span class="arithmatex">\(n\)</span> 个分量；</li>
+<li>它不是 <span class="arithmatex">\(\mathbb R\)</span> 乘以 <span class="arithmatex">\(n\)</span>，也不是一个单独的数，而是一个向量集合。</li>
+</ul>
+<p>例子：</p>
+<div class="arithmatex">\[
+\mathbb R^1: \quad x=\begin{bmatrix}3\end{bmatrix}
+\]</div>
+<p>它是一维空间，可以类比数轴。</p>
+<div class="arithmatex">\[
+\mathbb R^2: \quad x=\begin{bmatrix}3\\5\end{bmatrix}
+\]</div>
+<p>它是二维空间，可以类比平面。</p>
+<div class="arithmatex">\[
+\mathbb R^3: \quad x=\begin{bmatrix}3\\5\\2\end{bmatrix}
+\]</div>
+<p>它是三维空间。</p>
+<p>类似地，<span class="arithmatex">\(\mathbb R^{1000}\)</span> 表示每个向量有 <span class="arithmatex">\(1000\)</span> 个实数分量的空间。我们无法把它直接画成普通的三维图形，但它在数学上是完全明确的。</p>
+<h2 id="92-xinmathbb-rn">9.2 <span class="arithmatex">\(x\in\mathbb R^n\)</span> 是什么意思<a class="headerlink" href="#92-xinmathbb-rn" title="Permanent link">&para;</a></h2>
+<p>符号 <span class="arithmatex">\(\in\)</span> 表示“属于”。所以：</p>
+<div class="arithmatex">\[
+x\in\mathbb R^n
+\]</div>
+<p>意思是向量 <span class="arithmatex">\(x\)</span> 属于 <span class="arithmatex">\(n\)</span> 维实向量空间，也就是 <span class="arithmatex">\(x\)</span> 有 <span class="arithmatex">\(n\)</span> 个实数分量：</p>
+<div class="arithmatex">\[
+x=\begin{bmatrix}x_1\\x_2\\\vdots\\x_n\end{bmatrix},\qquad x_i\in\mathbb R
+\]</div>
+<p>如果 <span class="arithmatex">\(A\)</span> 是 <span class="arithmatex">\(3\times3\)</span> 矩阵，那么线性方程组 <span class="arithmatex">\(Ax=b\)</span> 中的未知向量通常写作：</p>
+<div class="arithmatex">\[
+x=\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}\in\mathbb R^3
+\]</div>
+<p>如果 <span class="arithmatex">\(A\)</span> 是 <span class="arithmatex">\(n\times n\)</span> 方阵，那么未知向量通常属于 <span class="arithmatex">\(\mathbb R^n\)</span>。</p>
+<h2 id="93-mathbb-rn-x">9.3 为什么说“原本在整个 <span class="arithmatex">\(\mathbb R^n\)</span> 中找 <span class="arithmatex">\(x\)</span>”<a class="headerlink" href="#93-mathbb-rn-x" title="Permanent link">&para;</a></h2>
+<p>对于方程：</p>
+<div class="arithmatex">\[
+Ax=b
+\]</div>
+<p>我们在寻找一个向量 <span class="arithmatex">\(x\)</span>，让它经过矩阵 <span class="arithmatex">\(A\)</span> 作用之后，恰好变成 <span class="arithmatex">\(b\)</span>。</p>
+<p>如果 <span class="arithmatex">\(A\)</span> 是 <span class="arithmatex">\(1000\times1000\)</span> 的矩阵，那么 <span class="arithmatex">\(x\)</span> 有 <span class="arithmatex">\(1000\)</span> 个分量，所以原始搜索空间是 <span class="arithmatex">\(\mathbb R^{1000}\)</span>。它包含所有可能的 <span class="arithmatex">\(1000\)</span> 维向量。</p>
+<p>直接说“在整个空间里找”，是指未知向量理论上可以是 <span class="arithmatex">\(\mathbb R^{1000}\)</span> 中任何一个向量，而不额外要求它必须有某种特定形式。</p>
+<p>克雷洛夫方法则额外施加了限制：先只考虑 <span class="arithmatex">\(b,Ab,\ldots,A^{m-1}b\)</span> 的线性组合。</p>
+<p>例如：</p>
+<div class="arithmatex">\[
+\mathcal K_2(A,b)=\operatorname{span}\{b,Ab\}
+\]</div>
+<p>它最多是二维的。我们把近似解写成：</p>
+<div class="arithmatex">\[
+x_2=c_0b+c_1Ab
+\]</div>
+<p>这样，原本需要确定 <span class="arithmatex">\(n\)</span> 个分量的未知向量，被限制在由两个向量张成的空间里；找这个向量时，只需确定两个系数 <span class="arithmatex">\(c_0,c_1\)</span>。当然，具体算法还需要根据残差或其他准则来选择系数。</p>
+<p><strong>比喻：</strong> <span class="arithmatex">\(\mathbb R^n\)</span> 像整个可搜索的空间，而克雷洛夫子空间像从特定规则构造出来的一块较小区域。但数学上它不是随意圈出的区域，而是严格由向量线性组合定义的子空间。</p>
+<h1 id="section-10">10. 为什么限制在克雷洛夫子空间里找解<a class="headerlink" href="#section-10" title="Permanent link">&para;</a></h1>
+<p>这是理解克雷洛夫方法的核心问题。</p>
+<h2 id="101">10.1 先区分精确解与近似解<a class="headerlink" href="#101" title="Permanent link">&para;</a></h2>
+<p>考虑线性方程组：</p>
+<div class="arithmatex">\[
+Ax=b
+\]</div>
+<p>如果 <span class="arithmatex">\(A\)</span> 可逆，则原方程有唯一精确解：</p>
+<div class="arithmatex">\[
+x^*=A^{-1}b
+\]</div>
+<p>我们知道精确解 <span class="arithmatex">\(x^*\)</span> 属于 <span class="arithmatex">\(\mathbb R^n\)</span>。但对于某个较小的 <span class="arithmatex">\(m\)</span>，精确解不一定已经属于 <span class="arithmatex">\(\mathcal K_m(A,b)\)</span>。</p>
+<p>克雷洛夫方法先在这个子空间里找一个向量 <span class="arithmatex">\(x_m\)</span>，希望它尽可能满足原方程。它通常先是近似解：</p>
+<div class="arithmatex">\[
+x_m\in\mathcal K_m(A,b)
+\]</div>
+<p>可能有：</p>
+<div class="arithmatex">\[
+Ax_m\ne b
+\]</div>
+<p>也就是说，限制搜索范围并不自动保证能够精确解出方程。它的价值在于用较小的子空间寻找一个足够好的近似解，并逐步扩大这个空间。</p>
+<h2 id="102">10.2 为什么小子空间有用<a class="headerlink" href="#102" title="Permanent link">&para;</a></h2>
+<p>大型稀疏线性方程组可能包含成千上万、甚至更多的未知数。直接保存并操作完整矩阵、或使用某些直接分解方法，可能消耗很大的计算资源。</p>
+<p>克雷洛夫方法利用递推：</p>
+<div class="arithmatex">\[
+v_0=b,\qquad v_1=Av_0,\qquad v_2=Av_1,\quad\ldots
+\]</div>
+<p>每一步核心计算都是矩阵与向量相乘，而不是先显式求出 <span class="arithmatex">\(A^2,A^3,\ldots\)</span>。对大型稀疏矩阵而言，矩阵—向量乘法往往是非常自然且相对高效的运算。</p>
+<p>此外，当 <span class="arithmatex">\(m\ll n\)</span> 时，我们可以先在低维子空间里求解一个规模较小的问题。是否能用很小的 <span class="arithmatex">\(m\)</span> 达到目标精度，则取决于矩阵性质、算法和问题本身。</p>
+<h2 id="103">10.3 近似解如何被选出来<a class="headerlink" href="#103" title="Permanent link">&para;</a></h2>
+<p>仅仅指定 <span class="arithmatex">\(x_m\in\mathcal K_m(A,b)\)</span> 还不够，因为子空间里有许多向量。算法必须提供选择规则。</p>
+<p>例如，对线性方程组定义残差：</p>
+<div class="arithmatex">\[
+r_m=b-Ax_m
+\]</div>
+<p>残差表示当前近似解代入原方程后还差多少。</p>
+<ul>
+<li>如果 <span class="arithmatex">\(r_m=0\)</span>，那么 <span class="arithmatex">\(x_m\)</span> 就是精确解；</li>
+<li>如果 <span class="arithmatex">\(r_m\)</span> 很小，通常表示方程满足得较好，但残差小不总是等价于解的误差小，还与矩阵的条件数等因素有关；</li>
+<li>如果残差还很大，算法通常会继续扩大子空间或进行更多迭代。</li>
+</ul>
+<p>不同克雷洛夫方法的选系数方式不同。例如 GMRES 选择使残差的二范数尽可能小的子空间内近似解；共轭梯度法则利用对称正定矩阵结构和相应的能量最小化性质。</p>
+<h1 id="section-11">11. 为什么最终有可能找到原方程的精确解<a class="headerlink" href="#section-11" title="Permanent link">&para;</a></h1>
+<p>这个问题必须分两层理解：先看一个具体例子，再看一般数学原理。</p>
+<h2 id="111">11.1 一个三维例子<a class="headerlink" href="#111" title="Permanent link">&para;</a></h2>
+<p>设：</p>
+<div class="arithmatex">\[
+A=\begin{bmatrix}1&amp;0&amp;0\\0&amp;2&amp;0\\0&amp;0&amp;3\end{bmatrix},\qquad
+b=\begin{bmatrix}1\\1\\1\end{bmatrix}
+\]</div>
+<p>方程是 <span class="arithmatex">\(Ax=b\)</span>。因为 <span class="arithmatex">\(A\)</span> 是对角矩阵，精确解很容易算出：</p>
+<div class="arithmatex">\[
+x^*=\begin{bmatrix}1\\\frac12\\\frac13\end{bmatrix}
+\]</div>
+<p>我们看看它何时能由克雷洛夫子空间中的向量表示出来。</p>
+<h3 id="b_1">一阶：只能取 <span class="arithmatex">\(b\)</span> 的倍数<a class="headerlink" href="#b_1" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\mathcal K_1(A,b)=\operatorname{span}\left\{\begin{bmatrix}1\\1\\1\end{bmatrix}\right\}
+\]</div>
+<p>其中的向量都形如：</p>
+<div class="arithmatex">\[
+x_1=c_0\begin{bmatrix}1\\1\\1\end{bmatrix}
+=\begin{bmatrix}c_0\\c_0\\c_0\end{bmatrix}
+\]</div>
+<p>三个分量必须相等，但精确解的三个分量是 <span class="arithmatex">\(1,\frac12,\frac13\)</span>，并不相等。因此：</p>
+<div class="arithmatex">\[
+x^*\notin\mathcal K_1(A,b)
+\]</div>
+<p>一阶子空间里无法表示精确解，只能寻找近似解。</p>
+<h3 id="_3">二阶：有两个生成向量，但仍不够<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>先计算：</p>
+<div class="arithmatex">\[
+Ab=\begin{bmatrix}1\\2\\3\end{bmatrix}
+\]</div>
+<p>于是：</p>
+<div class="arithmatex">\[
+\mathcal K_2(A,b)=\operatorname{span}\left\{
+\begin{bmatrix}1\\1\\1\end{bmatrix},
+\begin{bmatrix}1\\2\\3\end{bmatrix}
+\right\}
+\]</div>
+<p>任意向量为：</p>
+<div class="arithmatex">\[
+x_2=c_0b+c_1Ab
+=\begin{bmatrix}c_0+c_1\\c_0+2c_1\\c_0+3c_1\end{bmatrix}
+\]</div>
+<p>若它等于精确解，就要求：</p>
+<div class="arithmatex">\[
+\begin{cases}
+c_0+c_1=1,\\
+c_0+2c_1=\frac12,\\
+c_0+3c_1=\frac13.
+\end{cases}
+\]</div>
+<p>前两个方程相减，得到 <span class="arithmatex">\(c_1=-\frac12\)</span>。第二个与第三个方程相减，得到 <span class="arithmatex">\(c_1=-\frac16\)</span>。同一个 <span class="arithmatex">\(c_1\)</span> 不可能同时等于这两个数，所以方程组不相容：</p>
+<div class="arithmatex">\[
+x^*\notin\mathcal K_2(A,b)
+\]</div>
+<p>这说明二维子空间仍然无法表示这个精确解。</p>
+<h3 id="a2b">三阶：加入 <span class="arithmatex">\(A^2b\)</span> 后可以表示精确解<a class="headerlink" href="#a2b" title="Permanent link">&para;</a></h3>
+<p>继续计算：</p>
+<div class="arithmatex">\[
+A^2b=\begin{bmatrix}1\\4\\9\end{bmatrix}
+\]</div>
+<p>三阶克雷洛夫子空间为：</p>
+<div class="arithmatex">\[
+\mathcal K_3(A,b)=\operatorname{span}\{b,Ab,A^2b\}
+\]</div>
+<p>尝试写成：</p>
+<div class="arithmatex">\[
+x_3=c_0b+c_1Ab+c_2A^2b
+\]</div>
+<p>令：</p>
+<div class="arithmatex">\[
+c_0=\frac{11}{6},\qquad c_1=-1,\qquad c_2=\frac16
+\]</div>
+<p>那么：</p>
+<div class="arithmatex">\[
+x_3=
+\frac{11}{6}\begin{bmatrix}1\\1\\1\end{bmatrix}
+-\begin{bmatrix}1\\2\\3\end{bmatrix}
++\frac16\begin{bmatrix}1\\4\\9\end{bmatrix}
+\]</div>
+<p>分别计算三个分量：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x_{3,1}&amp;=\frac{11}{6}-1+\frac16=1,\\
+x_{3,2}&amp;=\frac{11}{6}-2+\frac46=\frac12,\\
+x_{3,3}&amp;=\frac{11}{6}-3+\frac96=\frac13.
+\end{aligned}
+\]</div>
+<p>所以：</p>
+<div class="arithmatex">\[
+\boxed{x_3=\begin{bmatrix}1\\\frac12\\\frac13\end{bmatrix}=x^*}
+\]</div>
+<p>在这个例子中，到了三阶就找到了精确解。</p>
+<table>
+<thead>
+<tr>
+<th>阶数</th>
+<th>是否能表示精确解</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(m=1\)</span></td>
+<td>不能</td>
+<td>只有一个生成方向，三个分量被迫相等</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(m=2\)</span></td>
+<td>不能</td>
+<td>两个生成方向不足以表示该精确解</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(m=3\)</span></td>
+<td>能</td>
+<td>三个生成向量线性无关，张成整个 <span class="arithmatex">\(\mathbb R^3\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="112">11.2 一般数学原理：凯莱–哈密顿定理<a class="headerlink" href="#112" title="Permanent link">&para;</a></h2>
+<p>上面的三维例子显示了现象，但我们还想知道一般情况下为什么会如此。</p>
+<p>设 <span class="arithmatex">\(A\)</span> 是一个可逆的 <span class="arithmatex">\(n\times n\)</span> 方阵。它的特征多项式可以写成：</p>
+<div class="arithmatex">\[
+p(\lambda)=\lambda^n+a_{n-1}\lambda^{n-1}+\cdots+a_1\lambda+a_0
+\]</div>
+<p>根据<strong>凯莱–哈密顿定理</strong>，矩阵 <span class="arithmatex">\(A\)</span> 满足自己的特征多项式：</p>
+<div class="arithmatex">\[
+A^n+a_{n-1}A^{n-1}+\cdots+a_1A+a_0I=0
+\]</div>
+<p>因为 <span class="arithmatex">\(A\)</span> 可逆，所以特征多项式的常数项 <span class="arithmatex">\(a_0\)</span> 非零。将上式两边乘以 <span class="arithmatex">\(A^{-1}\)</span>：</p>
+<div class="arithmatex">\[
+A^{n-1}+a_{n-1}A^{n-2}+\cdots+a_2A+a_1I+a_0A^{-1}=0
+\]</div>
+<p>整理得到：</p>
+<div class="arithmatex">\[
+A^{-1}=-\frac{1}{a_0}\left(A^{n-1}+a_{n-1}A^{n-2}+\cdots+a_2A+a_1I\right)
+\]</div>
+<p>再将两边作用于向量 <span class="arithmatex">\(b\)</span>：</p>
+<div class="arithmatex">\[
+A^{-1}b=-\frac{1}{a_0}\left(A^{n-1}b+a_{n-1}A^{n-2}b+\cdots+a_2Ab+a_1b\right)
+\]</div>
+<p>右侧是 <span class="arithmatex">\(b,Ab,\ldots,A^{n-1}b\)</span> 的线性组合。按照克雷洛夫子空间的定义，这说明：</p>
+<div class="arithmatex">\[
+\boxed{A^{-1}b\in\mathcal K_n(A,b)}
+\]</div>
+<p>而原方程 <span class="arithmatex">\(Ax=b\)</span> 的精确解就是 <span class="arithmatex">\(x^*=A^{-1}b\)</span>。因此：</p>
+<div class="arithmatex">\[
+\boxed{x^*\in\mathcal K_n(A,b)}
+\]</div>
+<p>这就是理论保证。</p>
+<h2 id="113">11.3 这条结论的条件和边界<a class="headerlink" href="#113" title="Permanent link">&para;</a></h2>
+<p>这条结论应准确理解为：</p>
+<ul>
+<li><span class="arithmatex">\(A\)</span> 是可逆的 <span class="arithmatex">\(n\times n\)</span> 方阵时，方程 <span class="arithmatex">\(Ax=b\)</span> 有唯一解；</li>
+<li>在精确算术的数学意义下，该解属于 <span class="arithmatex">\(\mathcal K_n(A,b)\)</span>；</li>
+<li>这并不意味着精确解一定在低阶子空间 <span class="arithmatex">\(\mathcal K_m\)</span>（<span class="arithmatex">\(m&lt;n\)</span>）中；</li>
+<li>也不意味着数值算法在实际计算中必然只用 <span class="arithmatex">\(n\)</span> 步就获得数值上精确的结果，因为浮点舍入误差、停止准则和算法实现都可能产生影响；</li>
+<li>如果 <span class="arithmatex">\(A\)</span> 不可逆，上面的 <span class="arithmatex">\(A^{-1}\)</span> 推导不能直接使用，方程也不一定存在唯一解，需要额外分析。</li>
+</ul>
+<p>另外，如果某个克雷洛夫子空间在较早阶段已经停止增长，那么在精确算术下，后续幂次向量也不会带来新方向；如果解存在并且属于这一稳定空间，算法就有可能提前达到精确解。</p>
+<h1 id="section-12">12. 为什么不直接使用最高阶子空间<a class="headerlink" href="#section-12" title="Permanent link">&para;</a></h1>
+<p>既然 <span class="arithmatex">\(\mathcal K_n(A,b)\)</span> 在可逆情形下包含精确解，为什么不从一开始就构造它？</p>
+<p>主要原因是计算成本。</p>
+<p>假设 <span class="arithmatex">\(A\)</span> 是一个 <span class="arithmatex">\(100000\times100000\)</span> 的大型稀疏矩阵。那么 <span class="arithmatex">\(n=100000\)</span>。如果一直构造到 <span class="arithmatex">\(\mathcal K_n\)</span>，就可能需要保存大量生成向量，并执行许多次矩阵—向量乘法。对某些算法，还需要进行正交化和处理越来越大的小型投影问题。</p>
+<p>而在实际问题中，近似解可能只需要满足一个误差容忍度。例如我们希望残差满足：</p>
+<div class="arithmatex">\[
+\frac{\|b-Ax_m\|_2}{\|b\|_2}\le 10^{-6}
+\]</div>
+<p>如果在 <span class="arithmatex">\(m=30\)</span> 时就满足这个条件，就可能没有必要继续构造更高阶子空间。上式中的 <span class="arithmatex">\(10^{-6}\)</span> 只是一个示例阈值，实际要求由具体应用决定。</p>
+<p>因此，克雷洛夫方法通常采用迭代过程：</p>
+<ol>
+<li>从初始向量出发；</li>
+<li>逐步构造新的向量；</li>
+<li>在当前子空间里计算近似解；</li>
+<li>检查残差或其他收敛标准；</li>
+<li>若精度不够，就继续迭代。</li>
+</ol>
+<p>“子空间低维”不保证一定迅速收敛。收敛速度取决于矩阵的谱性质、条件数、算法、预处理方式以及问题本身。</p>
+<h1 id="section-13">13. 克雷洛夫方法与 GMRES、CG、Arnoldi、Lanczos 的关系<a class="headerlink" href="#section-13" title="Permanent link">&para;</a></h1>
+<p>克雷洛夫子空间是一个空间构造概念；GMRES、CG、Arnoldi 和 Lanczos 是利用这种结构的算法或过程。</p>
+<h2 id="131-gmres">13.1 GMRES<a class="headerlink" href="#131-gmres" title="Permanent link">&para;</a></h2>
+<p>GMRES 常用于一般的大型非对称线性方程组。它在某个克雷洛夫子空间中寻找近似解，并选择使残差二范数最小的解。典型地，从初始猜测 <span class="arithmatex">\(x_0\)</span> 出发，令初始残差：</p>
+<div class="arithmatex">\[
+r_0=b-Ax_0
+\]</div>
+<p>然后在仿射空间中寻找：</p>
+<div class="arithmatex">\[
+x_m\in x_0+\mathcal K_m(A,r_0)
+\]</div>
+<p>这里如果 <span class="arithmatex">\(x_0=0\)</span>，则 <span class="arithmatex">\(r_0=b\)</span>，表达式简化为 <span class="arithmatex">\(x_m\in\mathcal K_m(A,b)\)</span>。所以之前讲的 <span class="arithmatex">\(\mathcal K_m(A,b)\)</span> 是常见的一种情形。</p>
+<h2 id="132-cg">13.2 共轭梯度法（CG）<a class="headerlink" href="#132-cg" title="Permanent link">&para;</a></h2>
+<p>共轭梯度法主要用于<strong>对称正定</strong>矩阵的线性方程组。它同样利用克雷洛夫子空间，但使用了对称正定矩阵带来的特殊结构。不能把标准 CG 不加条件地用于任意矩阵。</p>
+<h2 id="133-arnoldi">13.3 Arnoldi 方法<a class="headerlink" href="#133-arnoldi" title="Permanent link">&para;</a></h2>
+<p>Arnoldi 过程一般用于非对称矩阵。它通过正交化的方式构造克雷洛夫子空间的一组正交基，并将较大的矩阵问题投影到低维空间中。GMRES 通常借助 Arnoldi 过程来构造所需的子空间基。</p>
+<h2 id="134-lanczos">13.4 Lanczos 方法<a class="headerlink" href="#134-lanczos" title="Permanent link">&para;</a></h2>
+<p>Lanczos 过程用于实对称矩阵或复 Hermitian 矩阵，利用矩阵的对称结构生成较简单的递推关系。它常用于特征值计算，也与对称正定情形下的克雷洛夫方法有关。</p>
+<p>它们的联系可概括为：</p>
+<ul>
+<li><strong>克雷洛夫子空间：</strong> 规定要搜索的空间；</li>
+<li><strong>Arnoldi / Lanczos：</strong> 构造该空间的基或利用矩阵结构进行递推；</li>
+<li><strong>GMRES / CG：</strong> 利用该空间中的候选向量，按各自规则构造线性方程组的近似解。</li>
+</ul>
+<h1 id="section-14">14. 常见误解与快速检查<a class="headerlink" href="#section-14" title="Permanent link">&para;</a></h1>
+<h2 id="1">误解 1：一个向量就是一条直线<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>不准确。一个固定向量是一个向量；它的所有实数倍组成的集合，在向量非零时才是一条经过原点的直线。</p>
+<div class="arithmatex">\[
+\mathbf v=\begin{bmatrix}1\\-1\end{bmatrix}
+\quad\text{是一个向量；}
+\]</div>
+<div class="arithmatex">\[
+\{t\mathbf v:t\in\mathbb R\}
+\quad\text{是一条直线对应的向量集合。}
+\]</div>
+<h2 id="2">误解 2：所有直线都是子空间<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>错误。线性子空间必须包含零向量，所以二维空间里一条不经过原点的直线不是子空间。</p>
+<h2 id="3-m-m">误解 3：有 <span class="arithmatex">\(m\)</span> 个生成向量，维数就一定是 <span class="arithmatex">\(m\)</span><a class="headerlink" href="#3-m-m" title="Permanent link">&para;</a></h2>
+<p>错误。维数等于线性无关方向的数量。向量可能线性相关，因此：</p>
+<div class="arithmatex">\[
+\dim\mathcal K_m(A,b)\le\min(m,n)
+\]</div>
+<h2 id="4">误解 4：克雷洛夫子空间的阶数就是维数<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>不一定。阶数 <span class="arithmatex">\(m\)</span> 表示使用了 <span class="arithmatex">\(b,Ab,\ldots,A^{m-1}b\)</span> 这些候选生成向量；空间维数可能小于 <span class="arithmatex">\(m\)</span>。</p>
+<h2 id="5">误解 5：只要限制在克雷洛夫子空间里，就一定能马上找到精确解<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>错误。低阶子空间可能不包含精确解。算法先找近似解，再尝试通过增加阶数改善结果。对可逆 <span class="arithmatex">\(n\times n\)</span> 矩阵，在精确数学条件下，精确解属于 <span class="arithmatex">\(\mathcal K_n(A,b)\)</span>。</p>
+<h2 id="6-a2a3ldots">误解 6：克雷洛夫子空间方法需要先计算 <span class="arithmatex">\(A^2,A^3,\ldots\)</span><a class="headerlink" href="#6-a2a3ldots" title="Permanent link">&para;</a></h2>
+<p>通常不需要。可以递推地计算：</p>
+<div class="arithmatex">\[
+v_0=b,\qquad v_{j+1}=Av_j
+\]</div>
+<p>每一步只需要矩阵—向量乘法。不过，具体算法可能还要存储这些向量并进行正交化等运算。</p>
+<h2 id="_4">自我检查题<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><strong>题 1：</strong> <span class="arithmatex">\(W=\{(t,2t):t\in\mathbb R\}\)</span> 是不是子空间？为什么？<br />
+<strong>答：</strong> 是。它包含零向量，并且是向量 <span class="arithmatex">\((1,2)\)</span> 的所有实数倍，对加法和数乘封闭。</p>
+<p><strong>题 2：</strong> <span class="arithmatex">\(U=\{(x,y):y=2x+1\}\)</span> 是不是子空间？<br />
+<strong>答：</strong> 不是。原点不满足 <span class="arithmatex">\(0=2\cdot0+1\)</span>，因此不包含零向量。</p>
+<p><strong>题 3：</strong> <span class="arithmatex">\(\mathcal K_3(A,b)\)</span> 一定是三维吗？<br />
+<strong>答：</strong> 不一定。它最多三维；如果 <span class="arithmatex">\(b,Ab,A^2b\)</span> 线性相关，维数就小于三。</p>
+<p><strong>题 4：</strong> <span class="arithmatex">\(x\in\mathbb R^{1000}\)</span> 表示什么？<br />
+<strong>答：</strong> <span class="arithmatex">\(x\)</span> 是一个有 <span class="arithmatex">\(1000\)</span> 个实数分量的向量。</p>
+<p><strong>题 5：</strong> <span class="arithmatex">\(x_m\in\mathcal K_m(A,b)\)</span> 就表示 <span class="arithmatex">\(x_m\)</span> 是精确解吗？<br />
+<strong>答：</strong> 不表示。它只说明 <span class="arithmatex">\(x_m\)</span> 是这个子空间中的候选解；还要检查 <span class="arithmatex">\(Ax_m=b\)</span> 是否成立，或者残差是否达到要求。</p>
+<h1 id="section-15">15. 核心公式汇总<a class="headerlink" href="#section-15" title="Permanent link">&para;</a></h1>
+<h2 id="_5">子空间判断<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="arithmatex">\[
+\mathbf 0\in W,\qquad
+\mathbf u,\mathbf v\in W\Rightarrow\mathbf u+\mathbf v\in W,\qquad
+\mathbf u\in W\Rightarrow c\mathbf u\in W
+\]</div>
+<h2 id="_6">参数形式与直线<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<div class="arithmatex">\[
+\left\{t\begin{bmatrix}1\\-1\end{bmatrix}:t\in\mathbb R\right\}
+\]</div>
+<p>它表示向量 <span class="arithmatex">\((1,-1)\)</span> 的所有实数倍，几何上是一条经过原点的直线。</p>
+<h2 id="_7">张成空间<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<div class="arithmatex">\[
+\operatorname{span}\{\mathbf v_1,\ldots,\mathbf v_k\}
+=\left\{\sum_{i=1}^k c_i\mathbf v_i:c_i\in\mathbb R\right\}
+\]</div>
+<h2 id="_8">克雷洛夫子空间<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<div class="arithmatex">\[
+\boxed{\mathcal K_m(A,b)=\operatorname{span}\{b,Ab,\ldots,A^{m-1}b\}}
+\]</div>
+<h2 id="_9">维数限制和嵌套关系<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<div class="arithmatex">\[
+\mathcal K_1\subseteq\mathcal K_2\subseteq\cdots\subseteq\mathcal K_m
+\]</div>
+<div class="arithmatex">\[
+\dim\mathcal K_m(A,b)\le\min(m,n)
+\]</div>
+<h2 id="_10">线性方程组与残差<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<div class="arithmatex">\[
+Ax=b,\qquad x^*=A^{-1}b\quad(A\text{ 可逆时})
+\]</div>
+<div class="arithmatex">\[
+r_m=b-Ax_m
+\]</div>
+<p>残差为零时，<span class="arithmatex">\(x_m\)</span> 是精确解；残差较小时，说明方程的满足程度通常较好，但解误差仍会受到矩阵性质的影响。</p>
+<h2 id="_11">精确解的理论保证<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>对可逆的 <span class="arithmatex">\(n\times n\)</span> 矩阵，在精确算术下：</p>
+<div class="arithmatex">\[
+\boxed{A^{-1}b\in\mathcal K_n(A,b)}
+\]</div>
+<p>这是由凯莱–哈密顿定理得到的。它不保证低阶子空间一定包含精确解，也不保证实际浮点计算能无误差地在有限步内得到精确结果。</p>
+<hr />
+<h2 id="_12">最后用一段话串起所有概念<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p><strong>子空间</strong>是对向量加法和数乘封闭、并包含零向量的向量集合。给定几个向量，把它们所有的线性组合收集起来，就得到它们的<strong>张成空间</strong>。克雷洛夫子空间则用一个矩阵 <span class="arithmatex">\(A\)</span> 和一个初始向量 <span class="arithmatex">\(b\)</span>，生成 <span class="arithmatex">\(b,Ab,A^2b,\ldots\)</span>，再取这些向量的张成空间。在求解大型线性方程组时，我们不一定直接在整个 <span class="arithmatex">\(\mathbb R^n\)</span> 中寻找任意向量，而是先在低阶克雷洛夫子空间中寻找近似解。低阶时可能不包含精确解，但空间可以逐步扩大；对于可逆的 <span class="arithmatex">\(n\times n\)</span> 矩阵，精确解在数学上属于 <span class="arithmatex">\(\mathcal K_n(A,b)\)</span>。这就是克雷洛夫子空间方法的基本思路。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="上一页: 首页">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                首页
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--next" aria-label="下一页: 数学索引">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                数学索引
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Shangzb
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "navigation.footer", "search.highlight", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

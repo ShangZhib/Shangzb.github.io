@@ -1,13 +1,11 @@
 
 # ===== 1. 网站基本信息 =====
-site_name: "Shangzb 的知识浅池"  # 网站名称，显示在网页左上角和浏览器标签等位置
+site_name: "Shane 的知识浅池"  # 网站名称，显示在网页左上角和浏览器标签等位置
 site_url: "https://shangzhib.github.io/Shangzb.github.io/"  # 网站正式部署后的网址
 site_author: "尚志兵 (Shangzb)"  # 网站作者
 site_description: "记录学习过程与个人思考。"  # 网站简介，可用于搜索引擎等场景
 
 # ===== 2. 主题与外观 =====
-
-
 theme:
   name: material  # 使用 Material for MkDocs 主题
   language: zh  # 将主题自带的提示文字设置为中文
@@ -36,7 +34,7 @@ theme:
     - navigation.top  # 提供返回顶部按钮
     - navigation.tracking  # 滚动时同步当前章节的地址锚点
     - navigation.footer  # 显示上一页和下一页导航
-    - search.suggest  # 搜索时提供关键词建议
+    #- search.suggest  # 搜索时提供关键词建议
     - search.highlight  # 高亮搜索匹配内容
     - content.code.copy  # 代码块提供复制按钮
     - content.code.annotate  # 支持代码块注释
@@ -51,6 +49,7 @@ edit_uri: "edit/main/docs/"  # 页面编辑入口；假设默认分支为 main�
 nav:
   - 首页: index.md  # 首页，文件路径相对于 docs 目录
   - 数学:
+      - 克雷列夫子空间: math/krylov-subspace.md  # 记录 Krylov 子空间方法
       - 数学索引: math/index.md  # 数学分类的入口页
       - 高等数学: math/calculus.md  # 记录微积分等内容
       - 线性代数: math/linear-algebra.md  # 记录矩阵、向量空间等内容
@@ -112,10 +111,12 @@ markdown_extensions:
 
 # ===== 8. 数学公式渲染 =====
 extra_javascript:
+  - javascripts/mathjax.js  # 配置 MathJax 的渲染选项，例如公式编号和自动换行
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  # 加载 MathJax，在浏览器中渲染 LaTeX 公式
+  
 
 extra_css:
-  - stylesheets/extra.css  # 加载 docs/stylesheets/extra.css 中的自定义样式
+  - stylesheets/extra.css  # 加载 docs/stylesheets/extra.css 中的自定义样式a
 
 
 #mkdocs gh-deploy 将会自动将 docs 目录下的内容部署到 GitHub Pages 上，部署后访问 https://shangzhib.github.io/Shangzb.github.io/ 即可看到网站。
