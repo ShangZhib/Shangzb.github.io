@@ -2,30 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://shangzhib.github.io/Shangzb.github.io/</loc>
-         <lastmod>2026-10-11</lastmod>
+         <lastmod>2026-10-12</lastmod>
     </url>
     <url>
          <loc>https://shangzhib.github.io/Shangzb.github.io/about/</loc>
-         <lastmod>2026-10-11</lastmod>
+         <lastmod>2026-10-12</lastmod>
     </url>
     <url>
          <loc>https://shangzhib.github.io/Shangzb.github.io/ai/</loc>
-         <lastmod>2026-10-11</lastmod>
+         <lastmod>2026-10-12</lastmod>
     </url>
     <url>
          <loc>https://shangzhib.github.io/Shangzb.github.io/cpp/</loc>
-         <lastmod>2026-10-11</lastmod>
+         <lastmod>2026-10-12</lastmod>
     </url>
     <url>
          <loc>https://shangzhib.github.io/Shangzb.github.io/math/</loc>
-         <lastmod>2026-10-11</lastmod>
+         <lastmod>2026-10-12</lastmod>
+    </url>
+    <url>
+         <loc>https://shangzhib.github.io/Shangzb.github.io/math/krylov-subspace/</loc>
+         <lastmod>2026-10-12</lastmod>
     </url>
     <url>
          <loc>https://shangzhib.github.io/Shangzb.github.io/math/linear-algebra/</loc>
-         <lastmod>2026-10-11</lastmod>
+         <lastmod>2026-10-12</lastmod>
     </url>
     <url>
          <loc>https://shangzhib.github.io/Shangzb.github.io/thoughts/</loc>
-         <lastmod>2026-10-11</lastmod>
+         <lastmod>2026-10-12</lastmod>
     </url>
 </urlset>
